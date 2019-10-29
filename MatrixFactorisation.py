@@ -24,6 +24,33 @@ def Df2Numpy(ratings):
     return R
 
 
+def dataAnalysis(R):
+    nUsers = R.shape[0]
+    nMovies = R.shape[1]
+    
+    # Number of rated movies per user
+    ratingsPerUser = [sum(R[i, :] > 0) for i in range(nUsers)]
+    maxRatingsPerUser = max(ratingsPerUser)
+    minRatingsPerUser = min(ratingsPerUser)
+    avgRatingsPerUser = sum(ratingsPerUser) / len(ratingsPerUser)
+    print("Max ratings per user : ", maxRatingsPerUser)
+    print("Min ratings per user : ", minRatingsPerUser)
+    print("Avg ratings per user : ", avgRatingsPerUser)
+    usersNoRatings = len([u for u in ratingsPerUser if u == 0])
+    print("Users with no ratings : ", usersNoRatings)
+    
+    # Number of ratings per movie
+    ratingsPerMovie = [sum(R[:, j] > 0) for j in range(nMovies)]
+    maxRatingsPerMovie = max(ratingsPerMovie)
+    minRatingsPerMovie = min(ratingsPerMovie)
+    avgRatingsPerMovie = sum(ratingsPerMovie) / len(ratingsPerMovie)
+    print("Max ratings per movie : ", maxRatingsPerMovie)
+    print("Min ratings per movie : ", minRatingsPerMovie)
+    print("Avg ratings per movie : ", avgRatingsPerMovie)
+    moviesNoRatings = len([m for m in ratingsPerMovie if m == 0])            
+    print("Movies with no ratings : ", moviesNoRatings)
+
+
 class MatrixFactorization():
     """
     A simple Matrix Factorization Class
@@ -38,7 +65,7 @@ class MatrixFactorization():
                  lambdaReg=0.0,
                  muReg=0.0,
                  maxIter=50,
-                 epsilon=0.001,
+                 epsilon=0.1,
                  trainFrac=0.8,
                  valFrac=0.1,
                  testFrac=0.1):
@@ -48,7 +75,7 @@ class MatrixFactorization():
         self.alpha = alpha
         self.muReg = muReg
         self.maxIter = maxIter
-        self.epsilon = 0.1
+        self.epsilon = epsilon
         self.nUsers, self.nMovies = ratings.shape
         self.trainFrac = trainFrac
         self.valFrac = valFrac
