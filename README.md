@@ -34,10 +34,10 @@ R = Df2Numpy(ratings)
 + Pour instancier un objet, utiliser le constructeur en choisissant les paramètres
 (tous ont une valeur par défaut visible dans le constructeur de la classe). Par
 exemple, le code ci-dessous précise les paramètres suivants:
-++ nombre de latent factors = 5
-++ learning rate = 0.01
-++ régularisation pour matrice utilisateurs/matrice films = 0.1
-++ jeu de données divisé en 80% training et 20% validation
+   + nombre de latent factors = 5
+   + learning rate = 0.01
+   + régularisation pour matrice utilisateurs/matrice films = 0.1
+   + jeu de données divisé en 80% training et 20% validation
 ```python
 R = Df2Numpy(ratings)
 mf = MatrixFactorization(R,
